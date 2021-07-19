@@ -1,13 +1,38 @@
-import { Flex, Box, Avatar, Stack, Input, Text } from '@chakra-ui/react';
-import { useCallback } from 'react';
-import { useEffect } from 'react';
-import { MutableRefObject, useRef } from 'react';
-import { useState } from 'react';
-import { FiSearch } from 'react-icons/fi';
-import { MdAttachFile } from 'react-icons/md';
-import { RiMore2Line } from 'react-icons/ri';
+import dynamic from "next/dynamic";
+import { 
+  useCallback, 
+  useEffect, 
+  useState,
+  MutableRefObject, 
+  useRef
+} from 'react';
+
+import { 
+  Flex, 
+  Box, 
+  Avatar, 
+  Stack, 
+  Input, 
+  Icon as IconChakra, 
+  Text 
+} from '@chakra-ui/react';
+
+import { 
+  RiSearchLine, 
+  RiAttachmentLine, 
+  RiMore2Line, 
+  RiCloseLine,
+  RiEmotionLine,
+  RiMicLine,
+  RiSendPlaneLine 
+} from 'react-icons/ri';
+
 import { Icon } from '../Icon';
 import { Message } from './Message';
+
+const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
+  ssr: false,
+});
 
 interface ChatProps {
   chat_id: number;
@@ -69,7 +94,7 @@ export function Window({ chat, user }: WindowProps) {
 
   const [text, setText] = useState<string>('');
   const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
-  // const [listening, setListening] = useState<boolean>(false);
+  const [listening, setListening] = useState<boolean>(false);
 
   const handleEmojiClick = useCallback((event: Event, emojiObject: { emoji: string }) => {
     setText(text + emojiObject.emoji);
@@ -81,6 +106,10 @@ export function Window({ chat, user }: WindowProps) {
 
   const handleCloseEmoji = () => {
     setEmojiOpen(false);
+  }
+
+  const handleMicClick = () => {
+
   }
 
   return (
@@ -107,8 +136,8 @@ export function Window({ chat, user }: WindowProps) {
           marginRight="1rem"
         >
           <Stack direction="row">
-            <Icon icon={FiSearch} />
-            <Icon icon={MdAttachFile} />
+            <Icon icon={RiSearchLine} />
+            <Icon icon={RiAttachmentLine} />
             <Icon icon={RiMore2Line} />
           </Stack>
         </Box>
@@ -141,8 +170,80 @@ export function Window({ chat, user }: WindowProps) {
           ))
         }
       </Box>
-      <Box>
-
+      <Box
+        height={emojiOpen ? '16rem' : '0px'}
+        overflowY="hidden"
+        transition="all ease 0.3s"
+      >
+        <EmojiPicker 
+          onEmojiClick={() => handleEmojiClick}
+          disableSearchBar
+          disableSkinTonePicker
+          pickerStyle={{ width: 'auto', background: 'none' }}
+        />
+      </Box>
+      <Box as={Flex} height="4rem" alignItems="center">
+        <Box as={Flex} margin="0 1rem">
+          <Box
+            width={emojiOpen ? '2.5rem' : '0'}
+            height="2.5rem"
+            borderRadius="1.25rem"
+            as={Flex}
+            justifyContent="center"
+            alignItems="center"
+            cursor="pointer"
+            overflow="hidden"
+            transition="all ease 0.3s"
+            onClick={handleCloseEmoji}
+          >
+            <IconChakra as={RiCloseLine} color="#919191" fontSize="xl" />
+          </Box>
+          <Box
+            width="2.5rem"
+            height="2.5rem"
+            borderRadius="1.25rem"
+            as={Flex}
+            justifyContent="center"
+            alignItems="center"
+            cursor="pointer"
+            overflow="hidden"
+            transition="all ease 0.3s"
+            onClick={handleOpenEmoji}
+            color={emojiOpen ? '#009688' : '#919191'}
+          >
+            <IconChakra as={RiEmotionLine} color="#919191" fontSize="xl" />
+          </Box>
+        </Box>
+        <Box flex="1">
+          <Input 
+            type="text"
+            placeholder="Digite uma mensagem"
+            value={text}
+            onChange={e => setText(e.target.value)} 
+            width="100%"
+            height="2.5rem"
+            border="0"
+            outline="0"
+            backgroundColor="#FFF"
+            borderRadius="1.25rem"
+            fontSize="1rem"
+            color="#4A4A4A"
+            paddingLeft="1rem"
+            _focus={{
+              border: "0",
+              outline: "0"
+            }}
+          />
+        </Box>
+        <Box as={Flex} margin="0 1rem">
+          {text === '' && 
+              <Icon 
+                icon={RiMicLine}
+                color={listening ? '#126ECE' : '#919191'}
+              />
+          }
+          {text !== '' && <Icon icon={RiSendPlaneLine} />}
+        </Box>
       </Box>
     </Box>
   );
