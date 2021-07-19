@@ -2,10 +2,11 @@ import { ElementType } from 'react';
 import { Box, Flex, Icon as IconChakra } from '@chakra-ui/react';
 
 interface IconProps {
-  icon: ElementType
+  icon: ElementType;
+  color?: string;
 }
 
-export function Icon({ icon }: IconProps) {
+export function Icon({ icon, color = '#919191' }: IconProps) {
   return (
     <Box
       width="2.5rem"
@@ -16,7 +17,7 @@ export function Icon({ icon }: IconProps) {
       alignItems="center"
       cursor="pointer"
     >
-      <IconChakra as={icon} color="#919191" fontSize="lg" />
+      <IconChakra as={icon} color={color} fontSize="xl" />
     </Box>
   );
 }
