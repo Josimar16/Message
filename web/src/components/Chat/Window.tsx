@@ -1,4 +1,5 @@
 import { Flex, Box, Avatar, Stack, Input, Text } from '@chakra-ui/react';
+import { useCallback } from 'react';
 import { useEffect } from 'react';
 import { MutableRefObject, useRef } from 'react';
 import { useState } from 'react';
@@ -69,6 +70,18 @@ export function Window({ chat, user }: WindowProps) {
   const [text, setText] = useState<string>('');
   const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
   // const [listening, setListening] = useState<boolean>(false);
+
+  const handleEmojiClick = useCallback((event: Event, emojiObject: { emoji: string }) => {
+    setText(text + emojiObject.emoji);
+  }, [text]);
+
+  const handleOpenEmoji = () => {
+    setEmojiOpen(true);
+  }
+
+  const handleCloseEmoji = () => {
+    setEmojiOpen(false);
+  }
 
   return (
     <Box as={Flex} flexDirection="column" height="100%">
