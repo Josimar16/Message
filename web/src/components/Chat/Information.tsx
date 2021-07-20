@@ -1,23 +1,18 @@
 import { useState } from 'react';
 import {
-  Box, Flex, Text, Stack, HStack, Checkbox
+  Box, Flex, Text, Stack, HStack
 } from '@chakra-ui/react';
 
-import { RiCloseLine, RiImageLine } from 'react-icons/ri';
+import { RiCloseLine, RiImageLine, RiInformationLine } from 'react-icons/ri';
 import { BiVideo } from 'react-icons/bi';
 import { CgFile } from 'react-icons/cg';
 import { BsCardChecklist } from 'react-icons/bs';
 import { HiOutlineViewGridAdd } from 'react-icons/hi';
 
 import { Icon } from '../Icon';
+import { Checkbox } from '../Checkbox';
 
 export function Information() {
-
-  const [checkedItems, setCheckedItems] = useState<boolean[]>([false, true, false])
-
-  const allChecked = checkedItems.every(Boolean)
-  const isIndeterminate = checkedItems.some(Boolean) && !allChecked
-
   return (
     <Box
       as={Flex}
@@ -79,113 +74,59 @@ export function Information() {
       <Box
         bg="#EDEDED"
         marginTop="0.75rem"
-        paddingTop="0.5rem"
         flex="1"
+        overflowY="auto"
+        css={{
+          '&::-webkit-scrollbar': {
+            width: '0.375rem',
+            height: '0.375rem'
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+          },
+        }}
       >
-        <HStack justifyContent="space-between" >
+        <HStack 
+          justifyContent="space-between" 
+          position="fixed"
+          zIndex="2"
+          margin="0"
+          width="18.5%"
+          bg="#EDEDED"
+        >
           <Flex alignItems="center" paddingLeft="0.75rem">
             <Icon icon={BsCardChecklist} />
-            <Text fontSize="0.875rem" color="#000" marginLeft="0.375rem">8 CHECK LISTS</Text>
+            <Text fontSize="0.875rem" color="#000" marginLeft="0.375rem">8 Subsídios</Text>
           </Flex>
           <Icon icon={HiOutlineViewGridAdd} />
         </HStack>
-        <Stack paddingLeft="1.5rem" marginTop="0.5">
-          <Checkbox
-            colorScheme="green"
-            isChecked={allChecked}
-            isIndeterminate={isIndeterminate}
-            onChange={(e) => setCheckedItems([e.target.checked, e.target.checked, e.target.checked])}
-          >
-            <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-              Envio de documentação
-            </Text>
-          </Checkbox>
-          <Stack spacing={1} paddingLeft="1rem">
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[0]}
-              onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1], e.target.checked])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                CPF
-              </Text>
-            </Checkbox>
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[1]}
-              onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked, e.target.checked])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                Email
-              </Text>
-            </Checkbox>
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[2]}
-              onChange={(e) => setCheckedItems([e.target.checked, e.target.checked, checkedItems[2]])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                Ramal
-              </Text>
-            </Checkbox>
+        <br />
+        <Stack
+          paddingLeft="1.5rem"
+          marginTop="1.5"
+        >
+          <Checkbox name="Envio de documentação" icon={RiInformationLine} />
+          <Stack spacing={-2} paddingLeft="1rem">
+            <Checkbox name="CPF" icon={RiInformationLine} />
+            <Checkbox name="Email" icon={RiInformationLine} />
+            <Checkbox name="Ramal" icon={RiInformationLine} />
           </Stack>
           <Box width="90%" border="1px solid #DDD" />
-          <Checkbox defaultIsChecked colorScheme="green">
-            <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-              Cópia da certidão de nascimento
-            </Text>
-          </Checkbox>
 
-          <Checkbox colorScheme="green">
-            <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-              Recibo de compra de terreno
-            </Text>
-          </Checkbox>
+          <Checkbox name="Cópia da certidão de nascimento" icon={RiInformationLine} />
+          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
+          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
+          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
+          <Checkbox name="Xerox do cartão de vácina" icon={RiInformationLine} />
 
-          <Checkbox colorScheme="green">
-            <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-              Xerox do cartão de vácina
-            </Text>
-          </Checkbox>
+          <Checkbox name="Compra de material" icon={RiInformationLine} />
 
-          <Checkbox
-            colorScheme="green"
-            isChecked={allChecked}
-            isIndeterminate={isIndeterminate}
-            onChange={(e) => setCheckedItems([e.target.checked, e.target.checked, e.target.checked])}
-          >
-            <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-              Compra de material
-            </Text>
-          </Checkbox>
           <Stack spacing={1} paddingLeft="1rem">
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[0]}
-              onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1], e.target.checked])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                Notebooks
-              </Text>
-            </Checkbox>
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[0]}
-              onChange={(e) => setCheckedItems([e.target.checked, checkedItems[1], e.target.checked])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                Acessórios
-              </Text>
-            </Checkbox>
-            <Checkbox
-              colorScheme="green"
-              isChecked={checkedItems[1]}
-              onChange={(e) => setCheckedItems([checkedItems[0], e.target.checked, e.target.checked])}
-            >
-              <Text fontSize="0.875rem" color="#919191" marginLeft="0.375rem">
-                Monitores
-              </Text>
-            </Checkbox>
+
+            <Checkbox name="Notebooks" icon={RiInformationLine} />
+            <Checkbox name="Acessórios" icon={RiInformationLine} />
+            <Checkbox name="Monitores" icon={RiInformationLine} />
+
           </Stack>
           <Box width="90%" border="1px solid #DDD" />
         </Stack>

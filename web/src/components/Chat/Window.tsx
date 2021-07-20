@@ -1,4 +1,5 @@
 
+import "regenerator-runtime";
 import dynamic from "next/dynamic";
 import {
   useCallback,
@@ -64,30 +65,25 @@ interface MessageProps {
 
 export function Window({ chat, user }: WindowProps) {
   const [list, setList] = useState<MessageProps[]>([
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
-    { sender_id: '1', body: 'Ola Maria, como vai?', date: '18:01' },
-    { sender_id: '2', body: 'Oi Josimar, tudo bem e com vc?', date: '18:03' },
-    { sender_id: '1', body: 'Vou ótimo, que bom te ver!', date: '18:06' },
-    { sender_id: '1', body: 'Faz tempo que não te vejo...', date: '18:06' },
+    { sender_id: '1', body: 'Lorem ipsum dolor sit amet, dolore magna aliqua.', date: '18:01' },
+    { sender_id: '2', body: 'Lorem ipsum dolor.', date: '18:03' },
+    { sender_id: '1', body: 'Lorem ipsum dolor sididunt ut labore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'Lorem qua.', date: '18:06' },
+    { sender_id: '1', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing ', date: '18:01' },
+    { sender_id: '2', body: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, aliqua.', date: '18:03' },
+    { sender_id: '1', body: 'Lorem ipsum dolor sit amere magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'Lorequa.', date: '18:01' },
+    { sender_id: '2', body: 'Lort labore et dolore magna aliqua.', date: '18:03' },
+    { sender_id: '1', body: 'Loreabore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'bore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'Lorem ipsum dolor sit amet, lore magna aliqua.', date: '18:01' },
+    { sender_id: '2', body: 'Lorem agna aliqua.', date: '18:03' },
+    { sender_id: '1', body: 'ore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'g elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.', date: '18:06' },
+    { sender_id: '1', body: 'Lorem ipsum do et dolore magna aliqua.', date: '18:01' },
+    { sender_id: '2', body: 'Lorem ipsum dolor sit ameet dolore magna aliqua.', date: '18:03' },
+    { sender_id: '1', body: 'Lorem ip aliqua.', date: '18:06' },
   ]);
 
   const bodyRef = useRef() as MutableRefObject<HTMLDivElement>;
@@ -113,32 +109,26 @@ export function Window({ chat, user }: WindowProps) {
     setEmojiOpen(false);
   }
 
-  // const { transcript, resetTranscript } = useSpeechRecognition();
-  // const [listening, setListening] = useState<boolean>(false);
-  // const microphoneRef = useRef() as MutableRefObject<HTMLAudioElement>;
+  const { transcript, resetTranscript } = useSpeechRecognition();
+  const [listening, setListening] = useState<boolean>(false);
 
-  // const handleStartMic = () => {
-  //   handleReset();
-  //   setListening(true);
-  //   // microphoneRef.current.classList.add("listening");
-  //   SpeechRecognition.startListening({
-  //     continuous: true
-  //   });
+  // useEffect(() => {
   //   setText(transcript);
-  //   handleReset();
-  // }
+  // }, [transcript])
 
-  // const handleEndMic = () => {
-  //   setListening(false);
-  //   // microphoneRef.current.classList.remove("listening");
-  //   SpeechRecognition.stopListening();
-  //   console.log(transcript);
-  // }
+  const handleStartMic = () => {
+    resetTranscript();
+    setListening(true);
+    
+    SpeechRecognition.startListening({ continuous: true });
+  }
 
-  // const handleReset = () => {
-  //   handleEndMic();
-  //   resetTranscript();
-  // }
+  const handleEndMic = () => {
+    setListening(false);
+    SpeechRecognition.stopListening();
+    setText(transcript);
+    
+  }
 
   const handleSendClick = () => {
     setList(oldState => [...oldState, { sender_id: '1', body: text, date: '18:06' }]);
@@ -250,11 +240,11 @@ export function Window({ chat, user }: WindowProps) {
           />
         </Box>
         <Box as={Flex} margin="0 1rem">
-          {/* {(text === '' && listening) &&
+          {(text === '' && listening) &&
             <Icon
               icon={RiPauseCircleLine}
               color="#009688"
-              handle={handleReset}
+              handle={handleEndMic}
             />
           }
           {text === '' &&
@@ -263,13 +253,12 @@ export function Window({ chat, user }: WindowProps) {
               color={listening ? '#126ECE' : '#919191'}
               handle={handleStartMic}
             />
-          }           */}
+          }          
 
           <Icon
             icon={RiSendPlaneLine}
             handle={handleSendClick}
           />
-
         </Box>
       </Box>
     </Box>
