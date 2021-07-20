@@ -1,11 +1,14 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { Box, Flex, Stack, Avatar, Icon as IconChakra, Input, useBreakpointValue } from '@chakra-ui/react';
+import { Box, Flex, Stack, Avatar, Icon as IconChakra, 
+        Input, useBreakpointValue, Text 
+} from '@chakra-ui/react';
 import { RiDashboardLine, RiMore2Line, RiSearchLine, RiSettings5Line } from 'react-icons/ri';
 import { Chat } from '../components/Chat';
 import { Window } from '../components/Chat/Window';
 import { Welcome } from '../components/Welcome';
 import { Icon } from '../components/Icon';
+import { Information } from '../components/Chat/Information';
 
 interface ChatProps {
   chat_id: number;
@@ -62,7 +65,7 @@ export default function Home() {
         >
           <Box
             as={Flex}
-            width="35%"
+            width="25%"
             max-width="26rem"
             flexDirection="column"
             borderRight="1px solid #DDD"
@@ -144,6 +147,7 @@ export default function Home() {
             {activeChat.chat_id !== 0 && <Window chat={activeChat} user={user} />}
             {activeChat.chat_id === 0 && <Welcome />}
           </Box>
+          <Information />
         </Flex>
       </Box>
     </>
