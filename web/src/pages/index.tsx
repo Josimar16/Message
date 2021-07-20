@@ -20,9 +20,28 @@ interface ChatProps {
 
 export default function Home() {
   const [chatList, setChatList] = useState<ChatProps[]>([
-    { chat_id: 1, title: 'Maxmiller Nunes', status: 'orange.400', date: '16/07/2021 08:47', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
-    { chat_id: 2, title: 'Manoel Carvalho', status: 'orange.400', date: '08:50', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
-    { chat_id: 3, title: 'Carlos Cenci', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 1, title: 'Protocolo #5161611', status: 'orange.400', date: '16/07/2021 08:47', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 2, title: 'Protocolo #5161612', status: 'orange.400', date: '08:50', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161613', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161614', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161615', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161616', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161677', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161618', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161619', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #51616110', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #51616111', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 3, title: 'Protocolo #5161611', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
   ]);
 
   const [activeChat, setActiveChat] = useState<ChatProps>({
@@ -147,7 +166,7 @@ export default function Home() {
             {activeChat.chat_id !== 0 && <Window chat={activeChat} user={user} />}
             {activeChat.chat_id === 0 && <Welcome />}
           </Box>
-          <Information />
+          {activeChat.chat_id !== 0 && <Information />}
         </Flex>
       </Box>
     </>
