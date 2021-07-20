@@ -1,27 +1,49 @@
 import Head from 'next/head';
 import { useState } from 'react';
-import { Box, Flex, Stack, Avatar, Icon, Input } from '@chakra-ui/react';
+import { Box, Flex, Stack, Avatar, Icon as IconChakra, 
+        Input, useBreakpointValue, Text 
+} from '@chakra-ui/react';
 import { RiDashboardLine, RiMore2Line, RiSearchLine, RiSettings5Line } from 'react-icons/ri';
 import { Chat } from '../components/Chat';
 import { Window } from '../components/Chat/Window';
 import { Welcome } from '../components/Welcome';
+import { Icon } from '../components/Icon';
+import { Information } from '../components/Chat/Information';
+
+interface ChatProps {
+  chat_id: number;
+  title: string;
+  date: string;
+  status: string;
+  last_message: string;
+}
 
 export default function Home() {
-  const [chatList, setChatList] = useState([
+  const [chatList, setChatList] = useState<ChatProps[]>([
     { chat_id: 1, title: 'Maxmiller Nunes', status: 'orange.400', date: '16/07/2021 08:47', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
     { chat_id: 2, title: 'Manoel Carvalho', status: 'orange.400', date: '08:50', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
     { chat_id: 3, title: 'Carlos Cenci', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
   ]);
 
-  const [activeChat, setActiveChat] = useState({ chat_id: 0 })
+  const [activeChat, setActiveChat] = useState<ChatProps>({
+    chat_id: 0,
+    title: '',
+    date: '',
+    status: '',
+    last_message: ''
+  });
 
   const [user, setUser] = useState({
-    id: 1,
+    id: '1',
     name: 'Josimar Martins',
     avatar: 'https://avatars3.githubusercontent.com/u/49077388?s=400&u=551a7010f9fc91859229f0d600481a2b2ca118a6&v=4'
   });
 
-  //1f3f5f
+  const breakpoint = useBreakpointValue({
+    base: '1120px',
+    md: '1480px'
+  })
+
   return (
     <>
       <Head>
@@ -35,7 +57,7 @@ export default function Home() {
         bgGradient="linear(#1f3f5f 0%, #1f3f5f 15%, #1f3f5f 20%, #dadbd3 20%)"
       >
         <Flex
-          width="1480px"
+          width={breakpoint}
           height="calc(100vh - 2.5rem)"
           margin="1.25rem"
           bg="#EDEDED"
@@ -43,7 +65,7 @@ export default function Home() {
         >
           <Box
             as={Flex}
-            width="35%"
+            width="25%"
             max-width="26rem"
             flexDirection="column"
             borderRight="1px solid #DDD"
@@ -63,39 +85,9 @@ export default function Home() {
               />
 
               <Stack direction="row">
-                <Box
-                  width="2.5rem"
-                  height="2.5rem"
-                  borderRadius="1.25rem"
-                  as={Flex}
-                  justifyContent="center"
-                  alignItems="center"
-                  cursor="pointer"
-                >
-                  <Icon as={RiDashboardLine} color="#919191" fontSize="lg" />
-                </Box>
-                <Box
-                  width="2.5rem"
-                  height="2.5rem"
-                  borderRadius="1.25rem"
-                  as={Flex}
-                  justifyContent="center"
-                  alignItems="center"
-                  cur="pointer"
-                >
-                  <Icon as={RiSettings5Line} color="#919191" fontSize="lg" />
-                </Box>
-                <Box
-                  width="2.5rem"
-                  height="2.5rem"
-                  borderRadius="1.25rem"
-                  as={Flex}
-                  justifyContent="center"
-                  alignItems="center"
-                  cur="pointer"
-                >
-                  <Icon as={RiMore2Line} color="#919191" fontSize="lg" />
-                </Box>
+                <Icon icon={RiDashboardLine} />
+                <Icon icon={RiSettings5Line} />
+                <Icon icon={RiMore2Line} />
               </Stack>
             </Box>
             <Box
@@ -111,7 +103,7 @@ export default function Home() {
                 alignItems="center"
                 padding="0 0.625rem"
               >
-                <Icon as={RiSearchLine} color="#919191" fontSize="lg" />
+                <IconChakra as={RiSearchLine} color="#919191" fontSize="lg" />
                 <Input
                   type="search"
                   placeholder="Procurar por um protocolo"
@@ -152,9 +144,10 @@ export default function Home() {
             </Box>
           </Box>
           <Box flex="1">
-            {activeChat.chat_id !== 0 && <Window />}
+            {activeChat.chat_id !== 0 && <Window chat={activeChat} user={user} />}
             {activeChat.chat_id === 0 && <Welcome />}
           </Box>
+          <Information />
         </Flex>
       </Box>
     </>
