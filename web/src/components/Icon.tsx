@@ -21,6 +21,7 @@ const IconBase: ForwardRefRenderFunction<HTMLDivElement, IconProps> =
       cursor="pointer"
       onClick={handle}
       ref={ref}
+      marginRight="0.5rem"
     >
       <IconChakra as={icon} color={color} fontSize="xl" />
     </Box>
