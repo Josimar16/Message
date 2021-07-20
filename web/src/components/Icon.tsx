@@ -1,12 +1,15 @@
-import { ElementType } from 'react';
-import { Box, Flex, Icon as IconChakra } from '@chakra-ui/react';
+import { ElementType, ForwardRefRenderFunction } from 'react';
+import { Box, Flex, Icon as IconChakra, IconProps as ChakraIconProps } from '@chakra-ui/react';
+import { forwardRef } from 'react';
 
-interface IconProps {
+interface IconProps extends ChakraIconProps {
   icon: ElementType;
   color?: string;
+  handle?: () => void;
 }
 
-export function Icon({ icon, color = '#919191' }: IconProps) {
+const IconBase: ForwardRefRenderFunction<HTMLDivElement, IconProps> = 
+({ icon, color = '#919191', handle }, ref?) => {
   return (
     <Box
       width="2.5rem"
@@ -16,8 +19,12 @@ export function Icon({ icon, color = '#919191' }: IconProps) {
       justifyContent="center"
       alignItems="center"
       cursor="pointer"
+      onClick={handle}
+      ref={ref}
     >
       <IconChakra as={icon} color={color} fontSize="xl" />
     </Box>
   );
 }
+
+export const Icon = forwardRef(IconBase);
