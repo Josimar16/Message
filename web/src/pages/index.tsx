@@ -73,7 +73,7 @@ export default function Home() {
         as={Flex}
         justifyContent="center"
         alignItems="center"
-        bgGradient="linear(#1f3f5f 0%, #1f3f5f 15%, #1f3f5f 20%, #dadbd3 20%)"
+        bgGradient="linear(#dadbd3 0%, #dadbd3 25%, #dadbd3 85%, #1f3f5f 85%)"
       >
         <Flex
           width={breakpoint}

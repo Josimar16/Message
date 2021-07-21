@@ -120,7 +120,7 @@ export function Window({ chat, user }: WindowProps) {
     resetTranscript();
     setListening(true);
     
-    SpeechRecognition.startListening({ continuous: true });
+    SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
   }
 
   const handleEndMic = () => {
