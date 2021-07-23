@@ -19,7 +19,15 @@ import {
   Avatar,
   Stack,
   Input,
-  Text
+  Text,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+  PopoverHeader,
+  PopoverBody,
+  PopoverArrow,
+  PopoverCloseButton,
+  Button,
 } from '@chakra-ui/react';
 
 import {
@@ -30,12 +38,17 @@ import {
   RiEmotionLine,
   RiMicLine,
   RiSendPlaneLine,
-  RiPauseCircleLine
+  RiPauseCircleLine,
+  RiCheckboxCircleLine,
+  RiCloseCircleLine,
+  RiArchiveLine
 } from 'react-icons/ri';
 
 import { Icon } from '../Icon';
 import { Icon as IconChat } from '../Chat/Icon';
 import { Message } from './Message';
+import { useAside } from "../../hooks/Aside";
+import { ButtonLink } from "../ButtonLink";
 
 const EmojiPicker = dynamic(() => import("emoji-picker-react"), {
   ssr: false,
@@ -64,6 +77,8 @@ interface MessageProps {
 }
 
 export function Window({ chat, user }: WindowProps) {
+  const { setActive } = useAside();
+
   const [list, setList] = useState<MessageProps[]>([
     { sender_id: '1', body: 'Lorem ipsum dolor sit amet, dolore magna aliqua.', date: '18:01' },
     { sender_id: '2', body: 'Lorem ipsum dolor.', date: '18:03' },
@@ -97,9 +112,13 @@ export function Window({ chat, user }: WindowProps) {
   const [text, setText] = useState<string>('');
   const [emojiOpen, setEmojiOpen] = useState<boolean>(false);
 
-  const handleEmojiClick = useCallback((event: Event, emojiObject: { emoji: string }) => {
+  // const handleEmojiClick = useCallback((event: Event, emojiObject: { emoji: string }) => {
+    
+  // }, [text]);
+
+  const handleEmojiClick = (emojiObject: { emoji: string }) => {
     setText(text + emojiObject.emoji);
-  }, [text]);
+  }
 
   const handleOpenEmoji = () => {
     setEmojiOpen(true);
@@ -112,22 +131,17 @@ export function Window({ chat, user }: WindowProps) {
   const { transcript, resetTranscript } = useSpeechRecognition();
   const [listening, setListening] = useState<boolean>(false);
 
-  // useEffect(() => {
-  //   setText(transcript);
-  // }, [transcript])
-
   const handleStartMic = () => {
     resetTranscript();
     setListening(true);
-    
-    SpeechRecognition.startListening({ continuous: true, language: 'en-US' });
+
+    SpeechRecognition.startListening({ continuous: true });
   }
 
   const handleEndMic = () => {
     setListening(false);
     SpeechRecognition.stopListening();
     setText(transcript);
-    
   }
 
   const handleSendClick = () => {
@@ -136,7 +150,7 @@ export function Window({ chat, user }: WindowProps) {
   }
 
   return (
-    <Box as={Flex} flexDirection="column" height="100%">
+    <Box as={Flex} bg="#EFF5F5" flexDirection="column" height="100%">
       <Box
         height="3.75rem"
         borderBottom="1px solid #DDD"
@@ -151,7 +165,12 @@ export function Window({ chat, user }: WindowProps) {
             cursor="pointer"
             marginX="1rem"
           />
-          <Text fontSize="1rem" color="#000">{chat.title}</Text>
+          <Box>
+            <Text fontSize="1rem" color="#000">{chat.title}</Text>
+            <Text fontSize="0.75rem" color="#999" lineHeight="0.75rem">
+              Última interação em 1h atrás
+            </Text>
+          </Box>
         </Box>
         <Box
           as={Flex}
@@ -159,16 +178,57 @@ export function Window({ chat, user }: WindowProps) {
           marginRight="1rem"
         >
           <Stack direction="row">
-            <Icon icon={RiSearchLine} />
-            <Icon icon={RiLayoutRightLine} />
-            <Icon icon={RiMore2Line} />
+            <Icon color="#497173" icon={RiSearchLine} />
+            <Icon
+              color="#497173"
+              icon={RiLayoutRightLine}
+              handle={setActive}
+            />
+
+            <Popover
+              placement="bottom"
+              closeOnBlur={false}
+            >
+              <PopoverTrigger>
+                <Button
+                  variant="link"
+                  _focus={{
+                    outline: "0"
+                  }}
+                >
+                  <Icon color="#497173" icon={RiMore2Line} />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent _focus={{ border: '0', outline: 0 }}>
+                <PopoverArrow />
+                <PopoverCloseButton />
+                <PopoverHeader>Ações no protocolo</PopoverHeader>
+                <PopoverBody>
+                  <ButtonLink 
+                    title="Finalizar Protocolo"
+                    color="#497173"
+                    icon={RiCheckboxCircleLine}
+                  />
+                  <ButtonLink 
+                    title="Cancelar Protocolo"
+                    color="#E53E3E"
+                    icon={RiCloseCircleLine}
+                  />
+                  <ButtonLink 
+                    title="Arquivar Protocolo"
+                    color="#DD6B20"
+                    icon={RiArchiveLine}
+                  />
+                </PopoverBody>
+              </PopoverContent>
+            </Popover>
           </Stack>
         </Box>
       </Box>
       <Box
         flex="1"
         overflowY="auto"
-        bg="#E5DDD5"
+        bg="#FFF"
         backgroundSize="cover"
         backgroundPosition="top"
         padding="1rem 1.5rem"
@@ -199,7 +259,7 @@ export function Window({ chat, user }: WindowProps) {
         transition="all ease 0.3s"
       >
         <EmojiPicker
-          onEmojiClick={handleEmojiClick}
+          onEmojiClick={() => handleEmojiClick}
           disableSearchBar
           disableSkinTonePicker
           pickerStyle={{ width: 'auto', background: 'none' }}
@@ -214,7 +274,7 @@ export function Window({ chat, user }: WindowProps) {
           />
           <IconChat
             icon={RiEmotionLine}
-            color={emojiOpen ? '#009688' : '#919191'}
+            color={emojiOpen ? '#009688' : '#497173'}
             handle={handleOpenEmoji}
           />
         </Box>
@@ -228,7 +288,7 @@ export function Window({ chat, user }: WindowProps) {
             height="2.5rem"
             border="0"
             outline="0"
-            backgroundColor="#FFF"
+            backgroundColor="#EFF5F5"
             borderRadius="1.25rem"
             fontSize="1rem"
             color="#4A4A4A"
@@ -250,12 +310,13 @@ export function Window({ chat, user }: WindowProps) {
           {text === '' &&
             <Icon
               icon={RiMicLine}
-              color={listening ? '#126ECE' : '#919191'}
+              color={listening ? '#126ECE' : '#497173'}
               handle={handleStartMic}
             />
-          }          
+          }
 
           <Icon
+            color="#497173"
             icon={RiSendPlaneLine}
             handle={handleSendClick}
           />
