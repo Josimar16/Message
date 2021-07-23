@@ -5,7 +5,7 @@ import { Box, Flex, Image as ImageChakra, Text } from '@chakra-ui/react';
 export function Welcome() {
   return (
     <Box
-      bg="#F8F9FA"
+      bg="#EFF5F5"
       as={Flex}
       flexDirection="column"
       justifyContent="space-between"
@@ -30,6 +30,8 @@ export function Welcome() {
             color="#525252"
             fontWeight="normal"
             marginTop="2rem"
+            marginX="2rem"
+            textAlign="center"
           >
             Mantenha sempre seus protocolos em dias
           </Text>
