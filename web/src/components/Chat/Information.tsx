@@ -1,18 +1,18 @@
-import { useState } from 'react';
 import {
-  Box, Flex, Text, Stack, HStack
+  Box, Flex, HStack, Stack, Text
 } from '@chakra-ui/react';
-
-import { RiCloseLine, RiImageLine, RiInformationLine } from 'react-icons/ri';
 import { BiVideo } from 'react-icons/bi';
-import { CgFile } from 'react-icons/cg';
 import { BsCardChecklist } from 'react-icons/bs';
+import { CgFile } from 'react-icons/cg';
 import { HiOutlineViewGridAdd } from 'react-icons/hi';
-
-import { Icon } from '../Icon';
+import { RiCloseLine, RiImageLine, RiInformationLine } from 'react-icons/ri';
+import { useAside } from '../../hooks/Aside';
 import { Checkbox } from '../Checkbox';
+import { Icon } from '../Icon';
 
 export function Information() {
+  const { setActive } = useAside();
+
   return (
     <Box
       as={Flex}
@@ -25,7 +25,7 @@ export function Information() {
       <Box
         as={Flex}
         flexDirection="column"
-        bg="#EDEDED"
+        bg="#EFF5F5"
         padding="1.25rem"
       >
         <Box
@@ -37,7 +37,11 @@ export function Information() {
           <Text fontSize="1rem" color="#000">
             Informações do protocolo
           </Text>
-          <Icon icon={RiCloseLine} />
+          <Icon 
+            color="#497173" 
+            icon={RiCloseLine} 
+            handle={setActive}
+          />
         </Box>
 
         <Stack>
@@ -53,84 +57,82 @@ export function Information() {
       </Box>
 
       <Stack
-        bg="#EDEDED"
+        bg="#EFF5F5"
         marginTop="0.75rem"
         padding="0.75rem"
       >
         <HStack>
-          <Icon icon={RiImageLine} />
+          <Icon color="#497173" icon={RiImageLine} />
           <Text fontSize="0.875rem" color="#919191">7 Fotos</Text>
         </HStack>
         <HStack>
-          <Icon icon={BiVideo} />
+          <Icon color="#497173" icon={BiVideo} />
           <Text fontSize="0.875rem" color="#919191">1 Video</Text>
         </HStack>
         <HStack>
-          <Icon icon={CgFile} />
+          <Icon color="#497173" icon={CgFile} />
           <Text fontSize="0.875rem" color="#919191">1 Arquivo</Text>
         </HStack>
       </Stack>
 
-      <Box
-        bg="#EDEDED"
-        marginTop="0.75rem"
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        marginTop="1rem"
+        background="#EFF5F5"
+        padding="1rem"
+      >
+        <Flex justifyContent="space-between" alignItems="center">
+          <Icon color="#497173" paddingLeft="0.5rem" icon={BsCardChecklist} size="2xl" />
+          <Text fontSize="1rem"> 8 Subsídios</Text>
+        </Flex>
+        <Icon color="#497173"
+          icon={HiOutlineViewGridAdd}
+          size="2xl"
+          paddingRight="12rem"
+        />
+      </Flex>
+      <Flex
         flex="1"
         overflowY="auto"
+        background="#EFF5F5"
         css={{
-          '&::-webkit-scrollbar': {
-            width: '0.375rem',
-            height: '0.375rem'
+          "&::-webkit-scrollbar": {
+            width: "0.375rem",
+            height: "0.375rem",
           },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: 'rgba(0, 0, 0, 0.2)'
+          "&::-webkit-scrollbar-thumb": {
+            backgroundColor: "rgba(0, 0, 0, 0.2)",
           },
         }}
+        flexDirection="column"
+        paddingX="1rem"
+        alignItems="center"
       >
-        <HStack 
-          justifyContent="space-between" 
-          position="fixed"
-          zIndex="2"
-          margin="0"
-          width="18.5%"
-          bg="#EDEDED"
-        >
-          <Flex alignItems="center" paddingLeft="0.75rem">
-            <Icon icon={BsCardChecklist} />
-            <Text fontSize="0.875rem" color="#000" marginLeft="0.375rem">8 Subsídios</Text>
-          </Flex>
-          <Icon icon={HiOutlineViewGridAdd} />
-        </HStack>
-        <br />
-        <Stack
-          paddingLeft="1.5rem"
-          marginTop="1.5"
-        >
-          <Checkbox name="Envio de documentação" icon={RiInformationLine} />
-          <Stack spacing={-2} paddingLeft="1rem">
-            <Checkbox name="CPF" icon={RiInformationLine} />
-            <Checkbox name="Email" icon={RiInformationLine} />
-            <Checkbox name="Ramal" icon={RiInformationLine} />
-          </Stack>
-          <Box width="90%" border="1px solid #DDD" />
-
-          <Checkbox name="Cópia da certidão de nascimento" icon={RiInformationLine} />
-          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
-          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
-          <Checkbox name="Recibo de compra de terreno" icon={RiInformationLine} />
-          <Checkbox name="Xerox do cartão de vácina" icon={RiInformationLine} />
-
-          <Checkbox name="Compra de material" icon={RiInformationLine} />
-
-          <Stack spacing={1} paddingLeft="1rem">
-
-            <Checkbox name="Notebooks" icon={RiInformationLine} />
-            <Checkbox name="Acessórios" icon={RiInformationLine} />
-            <Checkbox name="Monitores" icon={RiInformationLine} />
-
-          </Stack>
-          <Box width="90%" border="1px solid #DDD" />
+        <Checkbox name="Envio de documentação" icon={RiInformationLine} />
+        <Stack spacing={-2} paddingLeft="1rem" width="100%">
+          <Checkbox name="CPF" icon={RiInformationLine} />
+          <Checkbox name="Email" icon={RiInformationLine} />
+          <Checkbox name="Ramal" icon={RiInformationLine} />
         </Stack>
-      </Box>
+        <Box width="90%" border="1px solid #DDD" />
+
+        <Checkbox name="Envio de documentação" icon={RiInformationLine} />
+        <Stack spacing={-2} paddingLeft="1rem" width="100%">
+          <Checkbox name="CPF" icon={RiInformationLine} />
+          <Checkbox name="Email" icon={RiInformationLine} />
+          <Checkbox name="Ramal" icon={RiInformationLine} />
+        </Stack>
+        <Box width="90%" border="1px solid #DDD" />
+
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+        <Checkbox name="Compra de material" icon={RiInformationLine} />
+
+      </Flex>
     </Box>
   );
 }
