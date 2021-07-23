@@ -5,11 +5,12 @@ import { forwardRef } from 'react';
 interface IconProps extends ChakraIconProps {
   icon: ElementType;
   color?: string;
+  size?: string;
   handle?: () => void;
 }
 
 const IconBase: ForwardRefRenderFunction<HTMLDivElement, IconProps> = 
-({ icon, color = '#919191', handle }, ref?) => {
+({ icon, color = '#FFF', handle, size = 'xl' }, ref?) => {
   return (
     <Box
       width="2.5rem"
@@ -23,7 +24,7 @@ const IconBase: ForwardRefRenderFunction<HTMLDivElement, IconProps> =
       ref={ref}
       marginRight="0.5rem"
     >
-      <IconChakra as={icon} color={color} fontSize="xl" />
+      <IconChakra as={icon} color={color} fontSize={size} />
     </Box>
   );
 }
