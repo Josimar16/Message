@@ -25,7 +25,7 @@ export function Message({ item, user }: MessageProps) {
       justifyContent={user.id === item.sender_id ? 'flex-end' : 'flex-start'}
     >
       <Box
-        bg="#FFF"
+        bg="#D6E3E6"
         borderRadius={8}
         boxShadow="0 1px 1px #CCC"
         as={Flex}
