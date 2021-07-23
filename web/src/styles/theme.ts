@@ -11,4 +11,12 @@ export const theme = extendTheme({
     heading: 'Poppins',
     body: 'Poppins',
   },
+  styles: {
+    global: {
+      body: {
+        bg:'linear(#D2E0E0 0%, #D2E0E0 25%, #D2E0E0 85%, #ADCCCC 85%)',
+        color: '#444E7A'
+      }
+    }
+  }
 });
