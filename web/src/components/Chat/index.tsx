@@ -21,9 +21,9 @@ export function Chat({ active, handle, item }: ChatProps) {
       cursor="pointer"
       alignItems="center"
       height="4.25rem"
-      bg={active ? '#EBEBEB' : 'transparent'}
+      bg={active ? '#D6E3E6' : 'transparent'}
       _hover={{
-        background: "#F5F5F5"
+        background: "#D6E3E6"
       }}
       onClick={handle}
     >
@@ -41,7 +41,7 @@ export function Chat({ active, handle, item }: ChatProps) {
         as={Flex}
         flexDirection="column"
         justifyContent="center"
-        borderBottom="1px solid #EEE"
+        borderBottom="1px solid #cecece"
         paddingRight="1rem"
         marginLeft="1rem"
 
