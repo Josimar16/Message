@@ -1,6 +1,6 @@
 import { ElementType } from 'react';
 import {
-  HStack,
+  Flex,
   Checkbox as CheckboxChakra,
   Text,
   Popover,
@@ -21,9 +21,10 @@ interface CheckboxProps {
 
 export function Checkbox({ name, icon }: CheckboxProps) {
   return (
-    <HStack
+    <Flex
       justifyContent="space-between"
       alignItems="center"
+      width="100%"
     >
       <CheckboxChakra
         colorScheme="green"
@@ -35,22 +36,22 @@ export function Checkbox({ name, icon }: CheckboxProps) {
       </CheckboxChakra>
       <Popover>
         <PopoverTrigger>
-          <Button 
+          <Button
             variant="link"
             _focus={{
               outline: "0"
             }}
           >
-            <Icon icon={icon} />
+            <Icon color="#497173" icon={icon} />
           </Button>
         </PopoverTrigger>
-        <PopoverContent>
+        <PopoverContent _focus={{border: '0', outline: 0}}>
           <PopoverArrow />
           <PopoverCloseButton />
-          <PopoverHeader>Confirmation!</PopoverHeader>
+          <PopoverHeader>Descrição</PopoverHeader>
           <PopoverBody>Are you sure you want to have that milkshake?</PopoverBody>
         </PopoverContent>
       </Popover>
-    </HStack>
+    </Flex>
   );
 }
