@@ -1,14 +1,16 @@
-import Head from 'next/head';
-import { useState } from 'react';
-import { Box, Flex, Stack, Avatar, Icon as IconChakra, 
-        Input, useBreakpointValue, Text 
+import {
+  Box, Flex, Icon as IconChakra, Input, useBreakpointValue
 } from '@chakra-ui/react';
-import { RiDashboardLine, RiMore2Line, RiSearchLine, RiSettings5Line } from 'react-icons/ri';
+import Head from 'next/head';
+import { useEffect, useState } from 'react';
+import { RiSearchLine } from 'react-icons/ri';
 import { Chat } from '../components/Chat';
-import { Window } from '../components/Chat/Window';
-import { Welcome } from '../components/Welcome';
-import { Icon } from '../components/Icon';
 import { Information } from '../components/Chat/Information';
+import { Window } from '../components/Chat/Window';
+import { NavigationDrawerMini } from '../components/Navigation/NavigationDrawerMini';
+import { Profile } from '../components/Profile';
+import { Welcome } from '../components/Welcome';
+import { useAside } from '../hooks/Aside';
 
 interface ChatProps {
   chat_id: number;
@@ -19,8 +21,10 @@ interface ChatProps {
 }
 
 export default function Home() {
+  const { isActive, setActive } = useAside();
+
   const [chatList, setChatList] = useState<ChatProps[]>([
-    { chat_id: 1, title: 'Protocolo #5161611', status: 'orange.400', date: '16/07/2021 08:47', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
+    { chat_id: 1, title: 'Protocolo #5161611', status: 'orange.400', date: '08:47', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
     { chat_id: 2, title: 'Protocolo #5161612', status: 'orange.400', date: '08:50', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
     { chat_id: 3, title: 'Protocolo #5161613', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
     { chat_id: 3, title: 'Protocolo #5161614', status: 'green.400', date: '09:55', last_message: 'Mensageria é um conceito que define que sistemas distribuídos, possam se comunicar por meio de troca de mensagens (evento),' },
@@ -61,7 +65,18 @@ export default function Home() {
   const breakpoint = useBreakpointValue({
     base: '1120px',
     md: '1480px'
-  })
+  });
+
+  useEffect(() => {
+    if (isActive) {
+      setActive();
+    }
+  }, []);
+
+  function handleActiveChat(chat: ChatProps) {
+    setActiveChat(chat);
+    setActive();
+  }
 
   return (
     <>
@@ -71,17 +86,18 @@ export default function Home() {
       </Head>
       <Box
         as={Flex}
-        justifyContent="center"
         alignItems="center"
-        bgGradient="linear(#dadbd3 0%, #dadbd3 25%, #dadbd3 85%, #1f3f5f 85%)"
+        justifyContent="center"
+        bgGradient="linear(#D2E0E0 0%, #D2E0E0 25%, #D2E0E0 85%, #ADCCCC 85%)"
       >
         <Flex
           width={breakpoint}
           height="calc(100vh - 2.5rem)"
           margin="1.25rem"
-          bg="#EDEDED"
+          bg="#497173"
           direction="row"
         >
+          <NavigationDrawerMini />
           <Box
             as={Flex}
             width="25%"
@@ -90,29 +106,9 @@ export default function Home() {
             borderRight="1px solid #DDD"
           >
             <Box
-              height="3.75rem"
-              as={Flex}
-              justifyContent="space-between"
-              alignItems="center"
-              padding="0 1rem"
-            >
-              <Avatar
-                size="md"
-                name={user.name}
-                src={user.avatar}
-                cursor="pointer"
-              />
-
-              <Stack direction="row">
-                <Icon icon={RiDashboardLine} />
-                <Icon icon={RiSettings5Line} />
-                <Icon icon={RiMore2Line} />
-              </Stack>
-            </Box>
-            <Box
-              bg="#F6F6F6"
+              bg="#EFF5F5"
               borderBottom="1px solid #EEE"
-              padding="0.375rem 1rem"
+              padding="0.55rem 1rem"
             >
               <Box
                 bg="#FFF"
@@ -140,7 +136,7 @@ export default function Home() {
             </Box>
             <Box
               flex="1"
-              bg="#FFF"
+              bg="#EFF5F5"
               overflowY="auto"
               css={{
                 '&::-webkit-scrollbar': {
@@ -157,7 +153,7 @@ export default function Home() {
                   key={key}
                   item={item}
                   active={activeChat.chat_id === chatList[key].chat_id}
-                  handle={() => setActiveChat(chatList[key])}
+                  handle={() => handleActiveChat(chatList[key])}
                 />
               ))}
             </Box>
@@ -166,9 +162,10 @@ export default function Home() {
             {activeChat.chat_id !== 0 && <Window chat={activeChat} user={user} />}
             {activeChat.chat_id === 0 && <Welcome />}
           </Box>
-          {activeChat.chat_id !== 0 && <Information />}
+          {isActive && <Information />}
         </Flex>
       </Box>
+      <Profile />
     </>
   )
 }
